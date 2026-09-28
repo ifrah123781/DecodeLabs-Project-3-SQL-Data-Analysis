@@ -1,198 +1,178 @@
 # DecodeLabs-Project-3-SQL-Data-Analysis
-Executed SQL analytical queries using Python and SQLite to analyze 1,200 e-commerce orders, extracting insights on product revenue, payment methods, and marketing channel performance.
-SQL Data Analysis
-Project Overview
-This project focuses on performing SQL-based data extraction and analytical querying on an e-commerce transactions dataset using Python and SQLite. The analysis was conducted to evaluate business KPIs, product sales performance, customer payment behaviors, fulfillment funnel status, and marketing channel efficiency.
-The project contains 1,200 orders and 14 original features related to customers, products, pricing, payments, order status, and sales.
 
-Objectives
-Load raw transactional data into an SQL database environment
+## Project Overview
 
-Write and execute structured SELECT queries
+This project focuses on performing SQL-based data extraction and analytical querying on an e-commerce transactions dataset using Python and SQLite.
 
-Apply filtering and conditional logic using WHERE and LIMIT
+The analysis was conducted to evaluate business KPIs, product sales performance, customer payment behavior, order fulfillment status, and marketing channel performance.
 
-Rank and organize query outputs using ORDER BY
+The dataset contains 1,200 orders and 14 original features related to customers, products, pricing, payments, order status, and sales.
 
-Perform fundamental aggregations using COUNT(), SUM(), and AVG()
+## Objectives
 
-Segment data using GROUP BY across multiple business dimensions
+* Load transactional data into an SQL database environment
+* Write and execute SQL `SELECT` queries
+* Apply filtering and conditional logic using `WHERE` and `LIMIT`
+* Sort query results using `ORDER BY`
+* Perform aggregations using `COUNT()`, `SUM()`, and `AVG()`
+* Segment data using `GROUP BY`
+* Analyze business performance across different dimensions
+* Summarize key commercial and operational observations
 
-Summarize key operational and commercial observations
+## Tools & Technologies
 
-Tools & Technologies
-Python
+* Python
+* SQLite (`sqlite3`)
+* Pandas
+* Google Colab / Jupyter Notebook
+* Excel
 
-SQLite (sqlite3)
+## Dataset Information
 
-Pandas
+* **Total Orders:** 1,200
+* **Original Features:** 14
+* **Date Range:** 2023–2025
+* **Dataset Type:** E-commerce / Sales Transactions
 
-Google Colab / Jupyter Notebook
+### Main Features
 
-Excel
+* OrderID
+* Date
+* CustomerID
+* Product
+* Quantity
+* UnitPrice
+* ShippingAddress
+* PaymentMethod
+* OrderStatus
+* TrackingNumber
+* ItemsInCart
+* CouponCode
+* ReferralSource
+* TotalPrice
 
-Dataset Information
-Total Orders: 1,200
+## Analysis Performed
 
-Original Features: 14
+### 1. In-Memory Database Setup
 
-Date Range: 2023–2025
+The dataset was loaded into a Pandas DataFrame and then ingested into an in-memory SQLite database as the `orders` table.
 
-Dataset Type: E-commerce / Sales Transactions
+This allowed SQL queries to be executed without requiring an external database server.
 
-Main Features
-OrderID
+### 2. Overall Business KPI Analysis
 
-Date
+SQL aggregate functions including `COUNT()`, `SUM()`, `AVG()`, and `ROUND()` were used to calculate overall business metrics.
 
-CustomerID
+* **Total Orders:** 1,200
+* **Total Units Sold:** 3,535
+* **Total Revenue:** $1,264,761.96
+* **Average Order Value (AOV):** $1,053.97
 
-Product
+### 3. High-Value Delivered Orders
 
-Quantity
+Orders with `TotalPrice > 2500` and `OrderStatus = 'Delivered'` were filtered and sorted by order value.
 
-UnitPrice
+The analysis identified the top 10 high-value completed orders, with order values ranging from $2,714.20 to $3,456.40.
 
-ShippingAddress
+### 4. Product Performance Analysis
 
-PaymentMethod
+Product-level sales and revenue were analyzed using `GROUP BY Product`.
 
-OrderStatus
+| Product  | Orders | Units Sold | Total Revenue |
+| -------- | -----: | ---------: | ------------: |
+| Chairs   |    178 |        562 |   $195,620.11 |
+| Printers |    181 |        542 |   $195,612.61 |
+| Laptops  |    173 |        535 |   $192,126.56 |
+| Tablets  |    179 |        497 |   $186,568.95 |
+| Monitors |    163 |        480 |   $175,651.41 |
+| Desks    |    170 |        508 |   $167,459.93 |
+| Phones   |    156 |        411 |   $151,722.39 |
 
-TrackingNumber
+### 5. Order Fulfillment Analysis
 
-ItemsInCart
+Order volumes and revenue were grouped according to `OrderStatus`.
 
-CouponCode
+* **Cancelled:** 250 orders
+* **Returned:** 247 orders
+* **Pending:** 237 orders
+* **Shipped:** 235 orders
+* **Delivered:** 231 orders
 
-ReferralSource
+Cancelled and returned orders together represented **497 orders (41.42%)**.
 
-TotalPrice
+### 6. Payment Channel Analysis
 
-Analysis Performed
-1. In-Memory Database Setup
-The raw dataset was loaded into a Pandas DataFrame and ingested directly into an in-memory SQLite database as the orders relational table, enabling full ANSI SQL query execution without external database server configuration.
+Payment methods were analyzed using `GROUP BY PaymentMethod`.
 
-2. Overall Business KPI Summary
-Aggregate functions (COUNT, SUM, AVG, ROUND) were executed to measure overall business performance.
+* **Online:** 258 transactions | $1,017.22 average spend
+* **Cash:** 246 transactions | $1,056.04 average spend
+* **Credit Card:** 234 transactions | $1,127.55 average spend
+* **Debit Card:** 232 transactions | $1,001.56 average spend
+* **Gift Card:** 230 transactions | $1,070.97 average spend
 
-Total Orders Processed: 1,200
+### 7. Marketing Channel Analysis
 
-Total Units Sold: 3,535
+Transaction volume and revenue were analyzed by `ReferralSource`.
 
-Total Cumulative Revenue: $1,264,761.96
+* **Instagram:** 259 orders | $275,285.45 revenue
+* **Email:** 250 orders | $261,808.55 revenue
+* **Google:** 241 orders | $250,441.48 revenue
+* **Facebook:** 228 orders | $250,410.90 revenue
+* **Referral:** 222 orders | $226,815.58 revenue
 
-Average Order Value (AOV): $1,053.97
+## Key Observations
 
-3. High-Value Delivered Orders
-Filtered for fulfilled customer orders using WHERE TotalPrice > 2500 AND OrderStatus = 'Delivered' and sorted descending by TotalPrice.
+* The dataset contains **1,200 transactions** with total revenue of **$1,264,761.96**.
+* **Chairs and Printers** generated approximately $195.6K each in revenue.
+* **Printers** had the highest order volume with 181 orders.
+* **Phones** had the lowest order volume and lowest total revenue among the analyzed products.
+* **Credit Card** transactions had the highest average spend at $1,127.55.
+* **Online** was the most frequently used payment method with 258 transactions.
+* **Instagram** generated the highest revenue among the listed referral sources at $275,285.45.
+* Cancelled and returned orders together accounted for **497 orders (41.42%)**.
 
-Successfully isolated the top 10 premium completed orders.
+## How to Run
 
-Order values for this cohort ranged between $2,714.20 and $3,456.40, with products including Tablets, Laptops, Printers, Chairs, and Phones.
+### Using Google Colab
 
-4. Product Performance Analysis
-Sales and revenue metrics were aggregated and grouped by product category using GROUP BY Product and sorted by cumulative revenue.
+1. Open `DecodeLabs_Project_3.ipynb` in Google Colab.
+2. Upload `Dataset for Data Analytics (2).xlsx` when prompted.
+3. Run the notebook cells sequentially from top to bottom.
+4. Review the SQL queries and resulting analysis tables.
 
-Chairs: 178 orders | 562 units sold | $195,620.11 total revenue | $1,098.99 avg price
+### Local Python Environment
 
-Printers: 181 orders | 542 units sold | $195,612.61 total revenue | $1,080.73 avg price
-
-Laptops: 173 orders | 535 units sold | $192,126.56 total revenue | $1,110.56 avg price
-
-Tablets: 179 orders | 497 units sold | $186,568.95 total revenue | $1,042.28 avg price
-
-Monitors: 163 orders | 480 units sold | $175,651.41 total revenue | $1,077.62 avg price
-
-Desks: 170 orders | 508 units sold | $167,459.93 total revenue | $985.06 avg price
-
-Phones: 156 orders | 411 units sold | $151,722.39 total revenue | $972.58 avg price
-
-5. Order Fulfillment Breakdown
-Aggregated order volumes and monetary amounts across all order lifecycle states using GROUP BY OrderStatus.
-
-Cancelled: 250 orders ($276,396.21 revenue impact)
-
-Returned: 247 orders ($243,277.70 revenue impact)
-
-Pending: 237 orders ($256,328.15 pending revenue)
-
-Shipped: 235 orders ($246,159.58 transit revenue)
-
-Delivered: 231 orders ($242,600.32 fulfilled revenue)
-
-6. Payment Channel & Spending Behavior
-Audited payment methods using GROUP BY PaymentMethod to evaluate customer preference and transaction values.
-
-Online: 258 transactions | $1,017.22 avg spend | $262,442.94 total spend
-
-Cash: 246 transactions | $1,056.04 avg spend | $259,786.29 total spend
-
-Credit Card: 234 transactions | $1,127.55 avg spend | $263,847.63 total spend
-
-Debit Card: 232 transactions | $1,001.56 avg spend | $232,361.18 total spend
-
-Gift Card: 230 transactions | $1,070.97 avg spend | $246,323.92 total spend
-
-7. Acquisition & Marketing Channel Performance
-Grouped transaction volume and revenue generation by ReferralSource.
-
-Instagram: 259 orders | $275,285.45 generated revenue
-
-Email: 250 orders | $261,808.55 generated revenue
-
-Google: 241 orders | $250,441.48 generated revenue
-
-Facebook: 228 orders | $250,410.90 generated revenue
-
-Referral: 222 orders | $226,815.58 generated revenue
-
-Key Observations
-Total store revenue reached $1,264,761.96 across 1,200 transactions with an average order spend of $1,053.97.
-
-Chairs and Printers were the top two revenue drivers, generating over $195.6K each.
-
-Printers recorded the single highest order volume (181 orders), while Phones recorded the lowest volume (156 orders) and lowest revenue ($151.7K).
-
-Credit Card transactions yielded the highest average order value ($1,127.55), while Online payment was the most frequently chosen payment method (258 orders).
-
-Instagram proved to be the most lucrative marketing source, contributing 259 orders and generating $275,285.45 in sales.
-
-Cancelled (250) and Returned (247) orders together accounted for 497 orders (41.42%), representing significant uncollected or reversed potential revenue ($519,673.91).
-
-How to Run
-Using Google Colab
-Open DecodeLabs_Project_3.ipynb in Google Colab.
-
-Upload Dataset for Data Analytics (2).xlsx to the environment files when prompted.
-
-Run the notebook cells sequentially from top to bottom.
-
-Review the SQL query formulations and tabular results returned directly via Pandas DataFrames.
-
-Local Python Environment
 Install the required libraries:
 
-Bash
+```bash
 pip install pandas openpyxl
-Open the .ipynb notebook using Jupyter Notebook, VS Code, or JupyterLab and execute all cells.
+```
 
-Skills Demonstrated
-SQL Fundamentals & Relational Data Management
+The project uses Python's built-in `sqlite3` library, so no separate SQLite installation is required.
 
-In-Memory Database Creation (sqlite3)
+Open the `.ipynb` notebook using Jupyter Notebook, JupyterLab, or VS Code and run the cells sequentially.
 
-Multi-Condition Data Filtering (WHERE, AND)
+## Skills Demonstrated
 
-Numerical Aggregation Functions (COUNT, SUM, AVG, ROUND)
+* SQL Fundamentals
+* SQLite
+* Relational Data Analysis
+* Data Filtering
+* `WHERE` and `AND`
+* `LIMIT`
+* `ORDER BY`
+* `GROUP BY`
+* `COUNT()`
+* `SUM()`
+* `AVG()`
+* `ROUND()`
+* Python and SQL Integration
+* Business KPI Analysis
+* Revenue Analysis
+* Product Performance Analysis
+* Payment Behavior Analysis
+* Marketing Channel Analysis
 
-Dimensional Categorization (GROUP BY)
+## Project Status
 
-Result Ranking & Sorting (ORDER BY DESC)
-
-Business Data Analysis & Revenue Diagnostics
-
-Python Integration with SQL
-
-Project Status
-Completed — DecodeLabs Virtual Internship Project 3
+**Completed — DecodeLabs Virtual Internship Project 3**
