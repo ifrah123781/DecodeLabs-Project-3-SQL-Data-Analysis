@@ -175,4 +175,4 @@ Open the `.ipynb` notebook using Jupyter Notebook, JupyterLab, or VS Code and ru
 
 ## Project Status
 
-**Completed — DecodeLabs Virtual Internship Project 3**
+**Completed — DecodeLabs Internship Project 3**
